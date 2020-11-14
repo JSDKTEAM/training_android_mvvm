@@ -1,5 +1,6 @@
 package com.example.myapplication.data.api
 
+import com.example.myapplication.BuildConfig
 import com.ihsanbal.logging.LoggingInterceptor
 import okhttp3.CookieJar
 import okhttp3.Interceptor
@@ -8,11 +9,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import java.net.URL
 import java.util.concurrent.TimeUnit
 
-const val HTTP_TIMEOUT =  60L
+const val HTTP_TIMEOUT = 60L
 
 interface BaseOkHttpClientBuilder {
     //TODO: shouldEnableTrustManager flag will be removed soon (when proxy api will be finished)
-    fun build(interceptors: Array<out Interceptor>, shouldEnableTrustManager: Boolean = false): OkHttpClient
+    fun build(
+        interceptors: Array<out Interceptor>,
+        shouldEnableTrustManager: Boolean = false
+    ): OkHttpClient
 }
 
 class BaseOkHttpClientBuilderImpl(
@@ -21,7 +25,10 @@ class BaseOkHttpClientBuilderImpl(
     private val logInterceptor: LoggingInterceptor
 ) : BaseOkHttpClientBuilder {
 
-    override fun build(interceptors: Array<out Interceptor>, shouldEnableTrustManager: Boolean): OkHttpClient {
+    override fun build(
+        interceptors: Array<out Interceptor>,
+        shouldEnableTrustManager: Boolean
+    ): OkHttpClient {
 
         val url = URL(baseUrl)
         val serverHostname = url.host
@@ -42,11 +49,11 @@ class BaseOkHttpClientBuilderImpl(
             }
             .apply {
                 addInterceptor(logInterceptor)
-//                if (BuildConfig.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     val logging = HttpLoggingInterceptor()
                     logging.level = HttpLoggingInterceptor.Level.BODY
                     addInterceptor(logging)
-//                }
+                }
 //                if (shouldEnableTrustManager) {
 //                    sslSocketFactory(trustKit.getSSLSocketFactory(serverHostname),
 //                        trustKit.getTrustManager(serverHostname))
