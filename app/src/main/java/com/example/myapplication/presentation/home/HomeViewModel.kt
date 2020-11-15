@@ -2,12 +2,17 @@ package com.example.myapplication.presentation.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.myapplication.domain.usecase.home.LoadUsersUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class HomeViewModel : ViewModel(),CoroutineScope {
+class HomeViewModel(
+    private val loadUsersUseCase: LoadUsersUseCase
+) : ViewModel(), CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext = job + Dispatchers.Main
@@ -16,7 +21,7 @@ class HomeViewModel : ViewModel(),CoroutineScope {
 
     val showCurrentNumber = MutableLiveData<Int>()
 
-    fun onBtnIncreaseClick(){
+    fun onBtnIncreaseClick() {
         currentNumber++
         showCurrentNumber.value = currentNumber
     }

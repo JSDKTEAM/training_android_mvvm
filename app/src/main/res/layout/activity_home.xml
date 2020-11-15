@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".presentation.home.HomeActivity">
 
+    <include layout="@layout/app_bar"/>
+
     <LinearLayout
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
@@ -15,7 +17,7 @@
             android:id="@+id/btnIncrease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
+            style="@style/Button.Green"
             android:text="+"
             android:textColor="#FFF" />
 
@@ -25,7 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="20dp"
+            android:layout_gravity="center"
+            style="@style/BoldText"
+            android:textSize="@dimen/textSizeMediumLarge"
             android:text="0"
             tools:text="1" />
 
@@ -33,7 +37,7 @@
             android:id="@+id/btnDecrease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
+            style="@style/Button.Green"
             android:text="-"
             android:textColor="#FFF" />
     </LinearLayout>

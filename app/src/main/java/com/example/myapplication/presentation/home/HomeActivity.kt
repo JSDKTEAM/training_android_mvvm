@@ -1,13 +1,15 @@
 package com.example.myapplication.presentation.home
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.example.myapplication.R
+import com.example.myapplication.presentation.common.MasterActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : MasterActivity() {
 
     private val viewModel: HomeViewModel by viewModel()
 
@@ -15,9 +17,13 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        setBackButtonVisible(false)
+        initMaster()
+        setTitle("Test")
+        initDialog(this)
+
         initEvent()
         initViewModel()
-
     }
 
     private fun initEvent() {
@@ -29,6 +35,14 @@ class HomeActivity : AppCompatActivity() {
     private fun initViewModel() {
         viewModel.showCurrentNumber.observe(this, Observer { currentNumber ->
             txtNumber.text = currentNumber.toString()
+            showDialogMsgSuccess(
+                title = null,
+                msg = currentNumber.toString(),
+                btnText = "ok",
+                listenerOk = DialogInterface.OnClickListener { dialog, _ ->
+                    dialog.cancel()
+                }
+            )
         })
     }
 }
