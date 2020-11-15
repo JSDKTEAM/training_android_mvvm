@@ -10,9 +10,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class HomeViewModel(
-    private val loadUsersUseCase: LoadUsersUseCase
-) : ViewModel(), CoroutineScope {
+class HomeViewModel() : ViewModel(), CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext = job + Dispatchers.Main

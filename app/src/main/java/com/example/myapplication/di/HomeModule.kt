@@ -16,8 +16,6 @@ val homeModule = module {
     }
 
     viewModel {
-        HomeViewModel(
-            loadUsersUseCase = get<LoadUsersUseCase>()
-        )
+        HomeViewModel()
     }
 }
